@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Twitter Widget
+Plugin Name: New Twitter Widget
 Plugin URI:
 Description: Displays a Twitter widget
 Author: Mihai Rotaru
@@ -8,15 +8,15 @@ Version: 1
 Author URI: 
 */
  
-class TwitterWidget extends WP_Widget {
+class NewTwitterWidget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
 	 */
 	public function __construct() {
 		parent::__construct(
-	 		'twitter_widget', // Base ID
-			'Twitter_Widget', // Name
+	 		'new_twitter_widget', // Base ID
+			'NewTwitterWidget', // Name
 			array( 'description' => __( 'Displays a Twitter widget', 'text_domain' ), ) // Args
 		);
 	}
@@ -82,4 +82,4 @@ class TwitterWidget extends WP_Widget {
 }
 
 // register Twitter_Widget widget
-add_action( 'widgets_init', create_function( '', 'register_widget( "twitter_widget" );' ) );
+add_action( 'widgets_init', create_function( '', 'register_widget( "NewTwitterWidget" );' ) );
