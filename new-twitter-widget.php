@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: New Twitter Widget
-Plugin URI:
+Plugin URI: https://github.com/mihai-rotaru/wordpress-twitter-widget
 Description: Displays a Twitter widget
 Author: Mihai Rotaru
-Version: 1.0.0-rc.1
-Author URI: 
+Version: 1.0.0
+Author URI: https://github.com/mihai-rotaru
 */
  
 class NewTwitterWidget extends WP_Widget {
