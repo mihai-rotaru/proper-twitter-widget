@@ -27,5 +27,8 @@ the widget belongs to.
 
 == Changelog ==
 
-= 1.0 =
+= 1.1.0 =
+* new customisation: transparent widget background
+
+= 1.0.0 =
 * initial release
