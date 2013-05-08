@@ -4,7 +4,7 @@ Plugin Name: New Twitter Widget
 Plugin URI:
 Description: Displays a Twitter widget
 Author: Mihai Rotaru
-Version: 1.0.0-alpha.1
+Version: 1.0.0-rc.1
 Author URI: 
 */
  
@@ -31,12 +31,17 @@ class NewTwitterWidget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		extract( $args );
-		$title = apply_filters( 'widget_title', $instance['title'] );
+		$twitter_id         = apply_filters( 'widget_twitter_id',       $instance['twitter_id'] );
+		$twitter_widget_id  = apply_filters( 'widget_twitter_widget_id',$instance['twitter_widget_id'] );
 
 		echo $before_widget;
-		if ( ! empty( $title ) )
-			echo $before_title . $title . $after_title;
-		echo __( 'Hello, World!', 'text_domain' );
+		if ( ! empty( $twitter_id ) && ! empty( $twitter_widget_id ) ) {
+            $_out  = '<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/' . $twitter_id ;
+            $_out .= '"  data-widget-id="' . $twitter_widget_id . '">Tweets by @' . $twitter_id . '</a>';
+            $_out .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?';
+            $_out .= '\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+            echo __( $_out, 'text_domain' );
+        }
 		echo $after_widget;
 	}
 
@@ -52,7 +57,8 @@ class NewTwitterWidget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['twitter_id']         = strip_tags( $new_instance['twitter_id'] );
+		$instance['twitter_widget_id']  = strip_tags( $new_instance['twitter_widget_id'] );
 
 		return $instance;
 	}
@@ -65,16 +71,24 @@ class NewTwitterWidget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
+		if ( isset( $instance[ 'twitter_id' ] ) ) {
+			$twitter_id = $instance[ 'twitter_id' ];
+		} else {
+			$twitter_id = __( '', 'text_domain' );
 		}
-		else {
-			$title = __( 'New title', 'text_domain' );
+		if ( isset( $instance[ 'twitter_widget_id' ] ) ) {
+			$twitter_widget_id = $instance[ 'twitter_widget_id' ];
+		} else {
+			$twitter_widget_id = __( '', 'text_domain' );
 		}
 		?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		<label for="<?php echo $this->get_field_id( 'twitter_id' ); ?>"><?php _e( 'Twitter username:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'twitter_id' ); ?>" name="<?php echo $this->get_field_name( 'twitter_id' ); ?>" type="text" value="<?php echo esc_attr( $twitter_id ); ?>" />
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id( 'twitter_widget_id' ); ?>"><?php _e( 'Widget ID:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'twitter_widget_id' ); ?>" name="<?php echo $this->get_field_name( 'twitter_widget_id' ); ?>" type="text" value="<?php echo esc_attr( $twitter_widget_id ); ?>" />
 		</p>
 		<?php 
 	}
