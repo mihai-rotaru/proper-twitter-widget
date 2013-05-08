@@ -4,7 +4,7 @@ Plugin Name: New Twitter Widget
 Plugin URI:
 Description: Displays a Twitter widget
 Author: Mihai Rotaru
-Version: 1
+Version: 1.0.0-alpha.1
 Author URI: 
 */
  
