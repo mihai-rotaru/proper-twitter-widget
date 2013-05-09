@@ -27,6 +27,10 @@ the widget belongs to.
 
 == Changelog ==
 
+= 1.2.0 =
+* all chrome customisations are supported: header, footer, borders, scrollbar and transparent
+* option to opt out of tailoring Twitter
+
 = 1.1.0 =
 * new customisation: transparent widget background
 
