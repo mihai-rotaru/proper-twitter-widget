@@ -18,6 +18,7 @@ class ProperTwitterWidget extends WP_Widget {
         'borders'        => true,
         'scrollbar'      => true,
         'transparent_bg' => false,
+        'opt_out'        => false,
     );
 
 	/**
@@ -52,6 +53,9 @@ class ProperTwitterWidget extends WP_Widget {
         $scrollbar          = !empty( $instance['scrollbar']      ) ? '1' : '0';
         $transparent_bg     = !empty( $instance['transparent_bg'] ) ? '1' : '0';
 
+        // opt-out of web intent related users
+        $opt_out            = !empty( $instance['opt_out']        ) ? '1' : '0';
+
         // render widget
 		echo $before_widget;
 		if ( ! empty( $twitter_id ) && ! empty( $twitter_widget_id ) ) {
@@ -65,7 +69,10 @@ class ProperTwitterWidget extends WP_Widget {
                 if( $transparent_bg ) $_out .= 'transparent ';
                 $_out .= '"';
             }
-            $_out .= 'data-dnt="true" href="https://twitter.com/' . $twitter_id ;
+            if( $opt_out ) {
+                $_out .= 'data-dnt="true" ';
+            }
+            $_out .= 'href="https://twitter.com/' . $twitter_id ;
             $_out .= '"  data-widget-id="' . $twitter_widget_id . '">Tweets by @' . $twitter_id . '</a>';
             $_out .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?';
             $_out .= '\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
@@ -97,6 +104,9 @@ class ProperTwitterWidget extends WP_Widget {
         $instance['scrollbar']          = $new_instance['scrollbar']        ? 1 : 0;
         $instance['transparent_bg']     = $new_instance['transparent_bg']   ? 1 : 0;
 
+        // opt-out of web intent related users
+        $instance['opt_out']            = $new_instance['opt_out']          ? 1 : 0;
+
 		return $instance;
 	}
 
@@ -119,6 +129,9 @@ class ProperTwitterWidget extends WP_Widget {
         $borders        = isset($instance['borders'])           ? (bool) $instance['borders']        : false;
         $scrollbar      = isset($instance['scrollbar'])         ? (bool) $instance['scrollbar']      : false;
         $transparent_bg = isset($instance['transparent_bg'])    ? (bool) $instance['transparent_bg'] : false;
+
+        // opt-out of web intent related users
+        $opt_out        = isset($instance['opt_out'])           ? (bool) $instance['opt_out']        : false;
 		?>
 		<p>
             <label for="<?php echo $this->get_field_id( 'twitter_id' ); ?>"><?php _e( 'Twitter username:' ); ?></label> 
@@ -148,6 +161,10 @@ class ProperTwitterWidget extends WP_Widget {
         <p>
             <input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id('transparent_bg'); ?>" name="<?php echo $this->get_field_name('transparent_bg'); ?>"<?php checked( $transparent_bg ); ?> />
             <label for="<?php echo $this->get_field_id('transparent_bg'); ?>"><?php _e( 'Transparent background ' ); ?></label><br />
+        </p>
+        <p>
+            <input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id('opt_out'); ?>" name="<?php echo $this->get_field_name('opt_out'); ?>"<?php checked( $opt_out ); ?> />
+            <label for="<?php echo $this->get_field_id('opt_out'); ?>"><?php _e( 'Opt out of tailoring ' ); ?></label><br />
         </p>
 		<?php 
 	}
