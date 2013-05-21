@@ -3,7 +3,7 @@ Contributors: mihai-rotaru
 Tags: twitter, widget
 Requires at least: 3.0.1
 Tested up to: 3.5.1
-Stable tag: 1.0.0
+Stable tag: 1.2.0
 
 Makes available a widget which contains a Twitter feed.
 
